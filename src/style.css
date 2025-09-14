@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-*: initial;
+  /* --breakpoint-phone: 40rem; */
+  --breakpoint-phone: 48rem;
+  --breakpoint-tablet: 60rem;
+  --breakpoint-laptop: 72rem;
+  --breakpoint-desktop: 80rem;
+}
+
+body,
+#app {
+  --spacing: 16px;
+  min-height: 4400px;
+  background: linear-gradient(
+    180deg,
+    var(--Color-Background-page-gradient-start, #fff) 0%,
+    var(--Color-Background-page-gradient-middle, #d3f2ff) 6%,
+    var(--Color-Background-page-gradient-end, #d3f2ff) 100%
+  );
+}
+
+img {
+  -webkit-user-drag: none;
+}
+
+:root {
+  font-family: Geist, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
