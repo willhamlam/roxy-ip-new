@@ -22,19 +22,24 @@ import Globe from "./components/Globe.vue";
     </header>
     <main>
       <section
-        class="roxy-ip-hero desktop:w-80 laptop:w-72 tablet:w-64 mx-auto pb-12 pt-10 flex flex-col items-center justify-between"
+        class="roxy-ip-hero min-h-[900px] pt-5 px-1 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto tablet:pb-12 tablet:pt-8 tablet:h-[100vh] tablet:justify-between tablet:text-center flex flex-col items-center"
       >
-        <div class="roxy-ip-title flex flex-col gap-1">
-          <h1>IP Address Lookup: What Is My IP?</h1>
-          <p class="text-base leading-1.5 text-neutral-600">
+        <div class="roxy-ip-title w-full flex flex-col px-1 tablet:px-0">
+          <h1 class="text-2xl tablet:text-[2rem] leading-1.2">
+            IP Address Lookup:<br class="tablet:hidden" />
+            What Is My IP?
+          </h1>
+          <p
+            class="text-sm tablet:text-base leading-1.5 text-neutral-600 mt-[0.5rem]"
+          >
             Instantly find the location and details of any IP address.<br />
             <strong>Your public IP is detected automatically below.</strong>
           </p>
         </div>
-        <div class="w-full tablet:px-6">
-          <div class="roxy-ip-data flex w-full">
+        <div class="w-full tablet:px-2 desktop:px-6 mt-1 tablet:mt-0">
+          <div class="roxy-ip-data flex flex-col tablet:flex-row w-full">
             <div
-              class="roxy-ip-address flex flex-6 flex-col text-left justify-between"
+              class="roxy-ip-address flex w-full desktop:flex-6 flex-col text-left justify-between"
             >
               <Globe />
               <div class="relative z-2">
@@ -45,7 +50,7 @@ import Globe from "./components/Globe.vue";
                 <p class="data-location">-118.243 ，34.0549</p>
               </div>
             </div>
-            <div class="roxy-ip-info flex flex-5 w-full">
+            <div class="roxy-ip-info flex w-full desktop:flex-5 w-full">
               <ul>
                 <li>
                   <span class="roxy-ip-info-label">Country:</span
@@ -86,11 +91,11 @@ import Globe from "./components/Globe.vue";
         </div>
       </section>
       <section
-        class="roxy-ip-introductions w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
+        class="roxy-ip-introductions p-1 phone:p-3 w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
       >
         <article class="intro-1">
           <h2>What is an IP Address Lookup Tool?</h2>
-          <div class="flex gap-1 my-5 items-center">
+          <div class="flex gap-1 my-5 items-center flex-col tablet:flex-row">
             <div class="desktop:flex-1 laptop:flex-5 tablet:flex-5">
               <p>
                 An IP address lookup, also known as IP geolocation, finds the
@@ -122,12 +127,14 @@ import Globe from "./components/Globe.vue";
         <section>
           <article class="pt-10">
             <h2>What Information Can You Get?</h2>
-            <p class="w-1/2 mt-1">
+            <p class="w-full tablet:w-1/2 mt-1">
               An IP lookup provides a wealth of technical and geographical data.
               However, it's important to understand its limitations.
             </p>
-            <div class="flex gap-2 mt-5 mb-5 items-center">
-              <div class="desktop:flex-1 laptop:flex-5 tablet:flex-5">
+            <div
+              class="flex gap-2 mt-5 mb-5 items-center flex-col tablet:flex-row"
+            >
+              <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
                 <p><strong>An IP checker typically reveals:</strong></p>
                 <ul>
                   <li>
@@ -152,8 +159,10 @@ import Globe from "./components/Globe.vue";
                 </div>
               </div>
             </div>
-            <div class="flex gap-2 mt-5 mb-5 items-center">
-              <div class="desktop:flex-1 laptop:flex-5 tablet:flex-5">
+            <div
+              class="flex gap-2 mt-5 mb-5 items-center flex-col tablet:flex-row"
+            >
+              <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
                 <p><strong>What an IP checker can't reveal:</strong></p>
                 <ul>
                   <li>
@@ -189,12 +198,12 @@ import Globe from "./components/Globe.vue";
         <section>
           <article class="pt-10">
             <h2>How Does an IP Address Lookup Tool Work?</h2>
-            <p class="w-1/2 mt-1">
+            <p class="w-full tablet:w-1/2 mt-1">
               The process is a fascinating example of digital forensics, relying
               on constantly updated databases:
             </p>
-            <div class="flex gap-2 my-5 items-center">
-              <div class="desktop:flex-1 laptop:flex-5 tablet:flex-5">
+            <div class="flex gap-2 my-5 items-center flex-col tablet:flex-row">
+              <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
                 <ol>
                   <li>
                     <p>
@@ -231,21 +240,23 @@ import Globe from "./components/Globe.vue";
           </article>
         </section>
       </section>
-      <section class="roxy-ip-use desktop:w-80 laptop:w-72 tablet:w-64 mx-auto">
+      <section
+        class="roxy-ip-use p-1 phone:p-3 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
+      >
         <h2>Common Uses for IP Address Lookups</h2>
         <p class="mt-1">
           IP lookups are essential tools across many industries for legitimate
           and practical purposes
         </p>
-        <div class="flex gap-2 my-2">
-          <div class="use-case flex-2">
+        <div class="flex gap-2 my-2 flex-col tablet:flex-row">
+          <div class="use-case tablet:flex-2">
             <p class="case-title">Cybersecurity</p>
             <p class="case-description w-2/3">
               Analysts trace the origin of cyberattacks, block traffic from
               malicious sources, and strengthen firewalls.
             </p>
           </div>
-          <div class="use-case flex-1">
+          <div class="use-case tablet:flex-1">
             <p class="case-title">Fraud Detection</p>
             <p class="case-description">
               Financial services and e-commerce platforms flag suspicious
@@ -254,8 +265,8 @@ import Globe from "./components/Globe.vue";
             </p>
           </div>
         </div>
-        <div class="flex gap-2">
-          <div class="use-case flex-1">
+        <div class="flex gap-2 flex-col tablet:flex-row">
+          <div class="use-case tablet:flex-1">
             <p class="case-title">Digital Rights Management</p>
             <p class="case-description">
               Streaming services like Netflix or Hulu use IP geolocation to
@@ -263,7 +274,7 @@ import Globe from "./components/Globe.vue";
               your region.
             </p>
           </div>
-          <div class="use-case flex-2">
+          <div class="use-case tablet:flex-2">
             <p class="case-title">Content Personalization</p>
             <p class="case-description w-2/3">
               Websites serve you content in your language, show prices in your
@@ -289,6 +300,8 @@ header {
 main {
   width: 100%;
   position: relative;
+  overflow: hidden;
+  overflow-y: auto;
   section {
     position: relative;
     z-index: 1;
@@ -311,18 +324,12 @@ main::before {
   width: 2000px;
   height: 2000px;
   background-image: url("@/assets/rxip_blob.svg");
-  background-repeat: no-repeat;
-  background-size: contain;
   background-position: center;
   pointer-events: none;
 }
 
 .roxy-ip-hero {
-  height: 100vh;
-  text-align: center;
-
   h1 {
-    font-size: 2rem;
     font-family: "Archivo";
     font-weight: 700;
   }
@@ -472,7 +479,6 @@ main::before {
 .roxy-ip-use {
   border-radius: 24px;
   background: #fff;
-  padding: 3rem 3rem;
 
   h2 {
     font-size: 1.5rem;
