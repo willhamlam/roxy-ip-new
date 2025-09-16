@@ -7,93 +7,110 @@ import Globe from "./components/Globe.vue";
   <div id="roxy-ip-checker">
     <header class="w-full fixed">
       <div
-        class="header-container w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto flex items-center justify-between py-1"
+        class="header-container px-1 tablet:px-0 w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto flex items-center justify-between py-1"
       >
-        <img src="@/assets/rxip_logo.svg" alt="Roxy IP Checker" />
+        <img
+          src="@/assets/rxip_logo.svg"
+          alt="Roxy IP Checker"
+          class="w-12 tablet:w-auto"
+        />
         <ul class="flex items-center gap-4 text-sm">
           <li>
-            <a href="#">Home</a>
-          </li>
-          <li>
-            <a href="#">About</a>
+            <a href="#">RoxyBrowser</a>
           </li>
         </ul>
       </div>
     </header>
     <main>
       <section
-        class="roxy-ip-hero min-h-[900px] pt-4 px-1 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto tablet:pb-12 tablet:pt-8 tablet:h-[100vh] tablet:justify-between tablet:text-center flex flex-col items-center"
+        class="roxy-ip-hero min-h-[900px] pt-6 px-1 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto tablet:pb-12 tablet:pt-8 tablet:h-[100vh] tablet:justify-between tablet:text-center flex flex-col items-center"
       >
-        <div class="roxy-ip-title w-full flex flex-col px-1 tablet:px-0">
-          <h1 class="text-2xl tablet:text-[2rem] leading-1.2">
-            IP Address Lookup:<br class="tablet:hidden" />
+        <div class="roxy-ip-title w-full flex flex-col tablet:px-0">
+          <h1 class="text-2xl text-center tablet:text-[2rem] leading-[1.2]">
+            IP Address Lookup:<br class="block tablet:hidden" />
             What Is My IP?
           </h1>
           <p
-            class="text-sm tablet:text-base leading-1.5 text-neutral-600 mt-[0.5rem]"
+            class="text-base text-center leading-[1.5] text-neutral-600 mt-[0.5rem]"
           >
-            Instantly find the location and details of any IP address.<br />
+            Instantly find the location and details of any IP address.<br
+              class="hidden tablet:block"
+            />
             <strong>Your public IP is detected automatically below.</strong>
           </p>
         </div>
-        <div class="w-full tablet:px-2 desktop:px-6 mt-1 tablet:mt-0">
+        <div class="w-full tablet:px-2 desktop:px-6 mt-2 tablet:mt-0">
           <div class="roxy-ip-data flex flex-col tablet:flex-row w-full">
             <div
               class="roxy-ip-address flex w-full desktop:flex-6 flex-col text-left justify-between"
             >
-              <Globe />
+              <Globe class="tablet:block hidden" />
               <div class="relative z-2">
-                <p class="data-label">You current IP Address:</p>
-                <p class="data-ip">182.255.32.54</p>
+                <p
+                  class="text-sm text-center data-label tablet:text-base tablet:text-left"
+                >
+                  You current IP Address:
+                </p>
+                <p
+                  class="text-[1.875rem] text-center data-ip tablet:text-[2.5rem] tablet:text-left"
+                >
+                  182.255.32.54
+                </p>
               </div>
               <div class="relative z-2">
-                <p class="data-location">-118.2433 ，34.0549</p>
+                <p
+                  class="data-location hidden tablet:block tablet:text-left tablet:text-base"
+                >
+                  -118.2433 ，34.0549
+                </p>
               </div>
             </div>
-            <div class="roxy-ip-info flex w-full desktop:flex-5 w-full">
-              <ul>
-                <li>
+            <div class="roxy-ip-info flex w-full desktop:flex-5">
+              <ul class="text-sm tablet:text-base">
+                <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Country:</span
                   ><span class="roxy-ip-info-value"
                     >United States of America</span
                   >
                 </li>
-                <li>
+                <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Region:</span
                   ><span class="roxy-ip-info-value">California</span>
                 </li>
-                <li>
+                <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">City:</span
                   ><span class="roxy-ip-info-value">Los Angeles</span>
                 </li>
-                <li>
+                <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Timezone:</span
                   ><span class="roxy-ip-info-value"
                     >Los Angeles County, CA (GMT-7)</span
                   >
                 </li>
-                <li>
+                <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Latitude:</span
-                  ><span class="roxy-ip-info-value"
-                    >-118.2433</span
-                  >
+                  ><span class="roxy-ip-info-value">-118.2433</span>
                 </li>
-                <li>
+                <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Longitude:</span
-                  ><span class="roxy-ip-info-value"
-                    >34.0549</span
-                  >
+                  ><span class="roxy-ip-info-value">34.0549</span>
                 </li>
               </ul>
             </div>
           </div>
         </div>
-        <div class="roxy-ip-form flex flex-col gap-2">
-          <p class="roxy-ip-form-description w-27.5 mx-auto">
+        <div
+          class="roxy-ip-form mt-1 tablet:mt-0 w-full flex flex-col gap-1 tablet:gap-2"
+        >
+          <p
+            class="roxy-ip-form-description text-base w-full tablet:w-27.5 mx-auto text-center leading-[1.5]"
+          >
             Enter any IP address in the box below to instantly view its
             location, network details, and more information.
           </p>
-          <div class="roxy-ip-form-wrapper flex justify-between">
+          <div
+            class="roxy-ip-form-wrapper w-full tablet:w-30 flex justify-between tablet:mx-auto"
+          >
             <input type="text" placeholder="Enter IP address" />
             <button>
               <img src="@/assets/ic_magnify.svg" alt="Lookup" />
@@ -102,199 +119,209 @@ import Globe from "./components/Globe.vue";
           </div>
         </div>
       </section>
-      <section
-        class="roxy-ip-introductions p-1 phone:p-3 w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
-      >
-        <article class="intro-1">
-          <h2>What is an IP Address Lookup Tool?</h2>
-          <div class="flex gap-1 my-5 items-center flex-col tablet:flex-row">
-            <div class="desktop:flex-1 laptop:flex-5 tablet:flex-5">
-              <p>
-                An IP address lookup, also known as IP geolocation, finds the
-                real-world geographic location and other associated details of a
-                device using its public IP address, short for Internet Protocol
-                address.
-              </p>
-              <br />
-              <p>
-                Every device connected to the internet, from servers to your
-                personal computer or smartphone, is assigned a unique IP address
-                to communicate across the network.
-              </p>
-              <br />
-              <p>
-                RoxyBrowser IP checker queries global geolocation databases to
-                provide you with detailed information mapped to that specific
-                digital address.
-              </p>
-            </div>
-            <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
-              <div class="roxy-ip-diagram">
-                <img src="@/assets/diagram_1.svg" alt="IP Address Lookup" />
-              </div>
-            </div>
-          </div>
-        </article>
-        <div class="divider"></div>
-        <section>
-          <article class="pt-10">
-            <h2>What Information Can You Get?</h2>
-            <p class="w-full tablet:w-1/2 mt-1">
-              An IP lookup provides a wealth of technical and geographical data.
-              However, it's important to understand its limitations.
-            </p>
+      <div class="mt-4 tablet:mt-0 px-1 tablet:px-0">
+        <section
+          class="roxy-ip-introductions mt-0 tablet:mt-[-7rem] p-1 phone:p-3 w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
+        >
+          <article class="intro-1">
+            <h2>What is an IP Address Lookup Tool?</h2>
             <div
-              class="flex gap-2 mt-5 mb-5 items-center flex-col tablet:flex-row"
+              class="flex gap-1 my-2 tablet:my-5 items-center flex-col tablet:flex-row"
             >
-              <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
-                <p><strong>An IP checker typically reveals:</strong></p>
-                <ul>
-                  <li>
-                    <p>
-                      <strong>Geolocation</strong>: Country, State/Region, City,
-                      Zip Code.
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <strong>Network</strong>: ISP Name, Organization, ASN.
-                    </p>
-                  </li>
-                  <li>
-                    <p><strong>Technical</strong>: Hostname, Time Zone.</p>
-                  </li>
-                </ul>
+              <div class="desktop:flex-1 laptop:flex-5 tablet:flex-5">
+                <p>
+                  An IP address lookup, also known as IP geolocation, finds the
+                  real-world geographic location and other associated details of
+                  a device using its public IP address, short for Internet
+                  Protocol address.
+                </p>
+                <br />
+                <p>
+                  Every device connected to the internet, from servers to your
+                  personal computer or smartphone, is assigned a unique IP
+                  address to communicate across the network.
+                </p>
+                <br />
+                <p>
+                  RoxyBrowser IP checker queries global geolocation databases to
+                  provide you with detailed information mapped to that specific
+                  digital address.
+                </p>
               </div>
               <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
                 <div class="roxy-ip-diagram">
-                  <img src="@/assets/diagram_2.svg" alt="IP Address Lookup" />
-                </div>
-              </div>
-            </div>
-            <div
-              class="flex gap-2 mt-5 mb-5 items-center flex-col tablet:flex-row"
-            >
-              <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
-                <p><strong>What an IP checker can't reveal:</strong></p>
-                <ul>
-                  <li>
-                    <p>
-                      <strong>Personal Identity</strong>: Your name, home
-                      address, or phone number.
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <strong>Precise Location</strong>: The location is an
-                      approximation of the ISP's network hub, not a live GPS
-                      coordinate.
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      <strong>Private Browsing Data</strong>: Your internet
-                      activity is not accessible.
-                    </p>
-                  </li>
-                </ul>
-              </div>
-              <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
-                <div class="roxy-ip-diagram">
-                  <img src="@/assets/diagram_3.svg" alt="IP Address Lookup" />
+                  <img src="@/assets/diagram_1.svg" alt="IP Address Lookup" />
                 </div>
               </div>
             </div>
           </article>
-        </section>
-        <div class="divider"></div>
-        <section>
-          <article class="pt-10">
-            <h2>How Does an IP Address Lookup Tool Work?</h2>
-            <p class="w-full tablet:w-1/2 mt-1">
-              The process is a fascinating example of digital forensics, relying
-              on constantly updated databases:
-            </p>
-            <div class="flex gap-2 my-5 items-center flex-col tablet:flex-row">
-              <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
-                <ol>
-                  <li>
-                    <p>
-                      IP Address Allocation: Global authorities (like IANA)
-                      allocate blocks of IP addresses to Regional Internet
-                      Registries, which in turn distribute them to Internet
-                      Service Providers (ISPs) in specific countries or regions.
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      Database Mapping: ISPs assign these IPs to their
-                      customers. Geolocation database providers collect this
-                      public data, mapping IP ranges to specific ISPs and their
-                      service areas.
-                    </p>
-                  </li>
-                  <li>
-                    <p>
-                      Querying the Data: When you enter an IP address into our
-                      tool, we send a secure query to one of these databases.
-                      The tool cross-references the IP and returns the recorded
-                      information, such as the country, city, and ISP owner.
-                    </p>
-                  </li>
-                </ol>
-              </div>
-              <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
-                <div class="roxy-ip-diagram">
-                  <img src="@/assets/diagram_4.svg" alt="IP Address Lookup" />
+          <div class="divider"></div>
+          <section>
+            <article class="pt-4 tablet:pt-10">
+              <h2>What Information Can You Get?</h2>
+              <p class="w-full tablet:w-1/2 mt-1">
+                An IP lookup provides a wealth of technical and geographical
+                data. However, it's important to understand its limitations.
+              </p>
+              <div
+                class="flex gap-2 my-2 tablet:my-5 items-center flex-col tablet:flex-row"
+              >
+                <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
+                  <p><strong>An IP checker typically reveals:</strong></p>
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>Geolocation</strong>: Country, State/Region,
+                        City, Zip Code.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Network</strong>: ISP Name, Organization, ASN.
+                      </p>
+                    </li>
+                    <li>
+                      <p><strong>Technical</strong>: Hostname, Time Zone.</p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
+                  <div class="roxy-ip-diagram">
+                    <img src="@/assets/diagram_2.svg" alt="IP Address Lookup" />
+                  </div>
                 </div>
               </div>
-            </div>
-          </article>
+              <div
+                class="flex gap-2 my-2 tablet:my-5 items-center flex-col tablet:flex-row"
+              >
+                <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
+                  <p><strong>What an IP checker can't reveal:</strong></p>
+                  <ul>
+                    <li>
+                      <p>
+                        <strong>Personal Identity</strong>: Your name, home
+                        address, or phone number.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Precise Location</strong>: The location is an
+                        approximation of the ISP's network hub, not a live GPS
+                        coordinate.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        <strong>Private Browsing Data</strong>: Your internet
+                        activity is not accessible.
+                      </p>
+                    </li>
+                  </ul>
+                </div>
+                <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
+                  <div class="roxy-ip-diagram">
+                    <img src="@/assets/diagram_3.svg" alt="IP Address Lookup" />
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
+          <div class="divider"></div>
+          <section>
+            <article class="pt-4 tablet:pt-10">
+              <h2>How Does an IP Address Lookup Tool Work?</h2>
+              <p class="w-full tablet:w-1/2 mt-1">
+                The process is a fascinating example of digital forensics,
+                relying on constantly updated databases:
+              </p>
+              <div
+                class="flex gap-2 my-2 tablet:my-5 items-center flex-col tablet:flex-row"
+              >
+                <div class="w-full desktop:flex-1 laptop:flex-5 tablet:flex-5">
+                  <ol>
+                    <li>
+                      <p>
+                        IP Address Allocation: Global authorities (like IANA)
+                        allocate blocks of IP addresses to Regional Internet
+                        Registries, which in turn distribute them to Internet
+                        Service Providers (ISPs) in specific countries or
+                        regions.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Database Mapping: ISPs assign these IPs to their
+                        customers. Geolocation database providers collect this
+                        public data, mapping IP ranges to specific ISPs and
+                        their service areas.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Querying the Data: When you enter an IP address into our
+                        tool, we send a secure query to one of these databases.
+                        The tool cross-references the IP and returns the
+                        recorded information, such as the country, city, and ISP
+                        owner.
+                      </p>
+                    </li>
+                  </ol>
+                </div>
+                <div class="desktop:flex-1 laptop:flex-6 tablet:flex-6">
+                  <div class="roxy-ip-diagram">
+                    <img src="@/assets/diagram_4.svg" alt="IP Address Lookup" />
+                  </div>
+                </div>
+              </div>
+            </article>
+          </section>
         </section>
-      </section>
-      <section
-        class="roxy-ip-use p-1 phone:p-3 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
-      >
-        <h2>Common Uses for IP Address Lookups</h2>
-        <p class="mt-1">
-          IP lookups are essential tools across many industries for legitimate
-          and practical purposes
-        </p>
-        <div class="flex gap-2 my-2 flex-col tablet:flex-row">
-          <div class="use-case tablet:flex-2">
-            <p class="case-title">Cybersecurity</p>
-            <p class="case-description w-2/3">
-              Analysts trace the origin of cyberattacks, block traffic from
-              malicious sources, and strengthen firewalls.
-            </p>
+      </div>
+      <div class="px-1 tablet:px-0">
+        <section
+          class="roxy-ip-use p-1 phone:p-3 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto"
+        >
+          <h2>Common Uses for IP Address Lookups</h2>
+          <p class="mt-1">
+            IP lookups are essential tools across many industries for legitimate
+            and practical purposes
+          </p>
+          <div class="flex gap-2 my-2 flex-col tablet:flex-row">
+            <div class="use-case tablet:flex-2">
+              <p class="case-title">Cybersecurity</p>
+              <p class="case-description w-2/3">
+                Analysts trace the origin of cyberattacks, block traffic from
+                malicious sources, and strengthen firewalls.
+              </p>
+            </div>
+            <div class="use-case tablet:flex-1">
+              <p class="case-title">Fraud Detection</p>
+              <p class="case-description">
+                Financial services and e-commerce platforms flag suspicious
+                transactions by comparing the IP location to the billing address
+                on file.
+              </p>
+            </div>
           </div>
-          <div class="use-case tablet:flex-1">
-            <p class="case-title">Fraud Detection</p>
-            <p class="case-description">
-              Financial services and e-commerce platforms flag suspicious
-              transactions by comparing the IP location to the billing address
-              on file.
-            </p>
+          <div class="flex gap-2 flex-col tablet:flex-row">
+            <div class="use-case tablet:flex-1">
+              <p class="case-title">Digital Rights Management</p>
+              <p class="case-description">
+                Streaming services like Netflix or Hulu use IP geolocation to
+                enforce licensing agreements and show only content available in
+                your region.
+              </p>
+            </div>
+            <div class="use-case tablet:flex-2">
+              <p class="case-title">Content Personalization</p>
+              <p class="case-description w-2/3">
+                Websites serve you content in your language, show prices in your
+                local currency, and display relevant local news or events.
+              </p>
+            </div>
           </div>
-        </div>
-        <div class="flex gap-2 flex-col tablet:flex-row">
-          <div class="use-case tablet:flex-1">
-            <p class="case-title">Digital Rights Management</p>
-            <p class="case-description">
-              Streaming services like Netflix or Hulu use IP geolocation to
-              enforce licensing agreements and show only content available in
-              your region.
-            </p>
-          </div>
-          <div class="use-case tablet:flex-2">
-            <p class="case-title">Content Personalization</p>
-            <p class="case-description w-2/3">
-              Websites serve you content in your language, show prices in your
-              local currency, and display relevant local news or events.
-            </p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </div>
       <section class="roxy-ip-privacy"></section>
     </main>
   </div>
@@ -353,13 +380,8 @@ main::before {
     padding: 0.5rem;
     overflow: hidden;
 
-    .data-label {
-      font-size: 1rem;
-    }
-
     .data-ip {
       font-family: "Geist Mono";
-      font-size: 2.5rem;
       font-weight: 500;
     }
 
@@ -384,8 +406,6 @@ main::before {
       border-radius: 1rem;
       ul {
         li {
-          display: flex;
-          gap: 0.5rem;
           padding: 0.75rem 0rem;
           text-align: left;
           font-family: "Geist Mono";
@@ -432,6 +452,8 @@ main::before {
       position: relative;
 
       input {
+        font-family: "Geist Mono";
+        letter-spacing: normal;
         padding: 0.5rem 1rem;
         width: 100%;
         &:focus {
@@ -440,6 +462,7 @@ main::before {
       }
 
       button {
+        cursor: pointer;
         position: absolute;
         right: 2px;
         top: 2px;
@@ -455,10 +478,6 @@ main::before {
       }
     }
   }
-}
-
-.roxy-ip-introductions {
-  margin-top: -7rem;
 }
 
 .roxy-ip-diagram {
@@ -493,7 +512,8 @@ main::before {
   background: #fff;
 
   h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.2;
     font-weight: 600;
   }
 
