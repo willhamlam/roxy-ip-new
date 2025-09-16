@@ -22,7 +22,7 @@ import Globe from "./components/Globe.vue";
     </header>
     <main>
       <section
-        class="roxy-ip-hero min-h-[900px] pt-5 px-1 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto tablet:pb-12 tablet:pt-8 tablet:h-[100vh] tablet:justify-between tablet:text-center flex flex-col items-center"
+        class="roxy-ip-hero min-h-[900px] pt-4 px-1 desktop:w-80 laptop:w-72 tablet:w-64 mx-auto tablet:pb-12 tablet:pt-8 tablet:h-[100vh] tablet:justify-between tablet:text-center flex flex-col items-center"
       >
         <div class="roxy-ip-title w-full flex flex-col px-1 tablet:px-0">
           <h1 class="text-2xl tablet:text-[2rem] leading-1.2">
@@ -47,7 +47,7 @@ import Globe from "./components/Globe.vue";
                 <p class="data-ip">182.255.32.54</p>
               </div>
               <div class="relative z-2">
-                <p class="data-location">-118.243 ，34.0549</p>
+                <p class="data-location">-118.2433 ，34.0549</p>
               </div>
             </div>
             <div class="roxy-ip-info flex w-full desktop:flex-5 w-full">
@@ -70,6 +70,18 @@ import Globe from "./components/Globe.vue";
                   <span class="roxy-ip-info-label">Timezone:</span
                   ><span class="roxy-ip-info-value"
                     >Los Angeles County, CA (GMT-7)</span
+                  >
+                </li>
+                <li>
+                  <span class="roxy-ip-info-label">Latitude:</span
+                  ><span class="roxy-ip-info-value"
+                    >-118.2433</span
+                  >
+                </li>
+                <li>
+                  <span class="roxy-ip-info-label">Longitude:</span
+                  ><span class="roxy-ip-info-value"
+                    >34.0549</span
                   >
                 </li>
               </ul>
@@ -358,7 +370,7 @@ main::before {
       .globe {
         position: absolute;
         left: -6rem;
-        top: 3rem;
+        bottom: -1rem;
         opacity: 0.4;
       }
     }
