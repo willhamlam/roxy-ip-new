@@ -1,13 +1,154 @@
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
+import { ref, onMounted, computed } from "vue";
 import Globe from "./components/Globe.vue";
+import HyperText from "./components/HyperText.vue";
+
+// API基础URL
+const API_BASE_URL = "http://47.238.180.193:8095";
+
+// IP查询状态管理
+const queryStatus = ref("idle"); // 'idle' | 'loading' | 'result' | 'error'
+
+// HyperText 动画状态计算 - 将 error 状态映射为 idle
+const animationStatus = computed(() => {
+  return queryStatus.value === "error" ? "idle" : queryStatus.value;
+});
+const ipResult = ref({
+  ip: "",
+  country_short: "",
+  country_long: "",
+  region: "",
+  city: "",
+  timezone: "",
+  latitude: "",
+  longitude: "",
+  zipcode: "",
+});
+const errorMessage = ref("");
+const ipInput = ref("");
+
+// IP地址验证
+const ipv4Regex =
+  /^(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}$/;
+const ipv6Regex =
+  /^((?:[0-9A-Fa-f]{1,4}:){7}(?:[0-9A-Fa-f]{1,4}|:)|(?:[0-9A-Fa-f]{1,4}:){1,7}:|(?:[0-9A-Fa-f]{1,4}:){1,6}:[0-9A-Fa-f]{1,4}|(?:[0-9A-Fa-f]{1,4}:){1,5}(?::[0-9A-Fa-f]{1,4}){1,2}|(?:[0-9A-Fa-f]{1,4}:){1,4}(?::[0-9A-Fa-f]{1,4}){1,3}|(?:[0-9A-Fa-f]{1,4}:){1,3}(?::[0-9A-Fa-f]{1,4}){1,4}|(?:[0-9A-Fa-f]{1,4}:){1,2}(?::[0-9A-Fa-f]{1,4}){1,5}|[0-9A-Fa-f]{1,4}:(?::[0-9A-Fa-f]{1,4}){1,6}|:(?::[0-9A-Fa-f]{1,4}){1,7}|:)(?:%.+)?$/;
+const isValidIp = (value) => ipv4Regex.test(value) || ipv6Regex.test(value);
+
+// 手动IP查询
+const handleSearch = async () => {
+  const inputValue = ipInput.value?.trim();
+  if (!inputValue || !isValidIp(inputValue)) {
+    alert("请输入有效的IP地址");
+    return;
+  }
+
+  queryStatus.value = "loading";
+  errorMessage.value = "";
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/search_ip`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ip: inputValue }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    if (result.code === 0 && result.data) {
+      // 成功获取数据
+      ipResult.value = {
+        ip: result.data.ip,
+        country_short: result.data.country_short,
+        country_long: result.data.country_long,
+        region: result.data.region,
+        city: result.data.city,
+        timezone: result.data.timezone,
+        latitude: result.data.latitude,
+        longitude: result.data.longitude,
+        zipcode: result.data.zipcode,
+      };
+      queryStatus.value = "result";
+    } else {
+      // API返回错误
+      throw new Error(result.msg || "API返回未知错误");
+    }
+  } catch (error) {
+    console.error("IP查询失败:", error);
+    errorMessage.value = error.message || "网络请求失败，请检查网络连接";
+    queryStatus.value = "error";
+  }
+};
+
+// 初始化函数 - 获取本地IP数据
+const initializeLocalIP = async () => {
+  queryStatus.value = "loading";
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/ip.json`);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    // 处理返回数据
+    if (result.ip) {
+      // 如果直接返回数据对象（包含ip字段）
+      ipResult.value = {
+        ip: result.ip,
+        country_short: result.country_short,
+        country_long: result.country_long,
+        region: result.region,
+        city: result.city,
+        timezone: result.timezone,
+        latitude: result.latitude,
+        longitude: result.longitude,
+        zipcode: result.zipcode,
+      };
+      queryStatus.value = "result";
+    } else if (result.code === 0 && result.data) {
+      // 如果返回包装格式
+      ipResult.value = {
+        ip: result.data.ip,
+        country_short: result.data.country_short,
+        country_long: result.data.country_long,
+        region: result.data.region,
+        city: result.data.city,
+        timezone: result.data.timezone,
+        latitude: result.data.latitude,
+        longitude: result.data.longitude,
+        zipcode: result.data.zipcode,
+      };
+      queryStatus.value = "result";
+    } else {
+      console.warn("初始化接口返回数据格式异常:", result);
+      queryStatus.value = "idle";
+    }
+  } catch (error) {
+    console.error("获取本地IP数据失败:", error);
+    // 初始化失败时保持空状态，不显示错误信息
+    queryStatus.value = "idle";
+  }
+};
+
+// 页面挂载时初始化
+onMounted(() => {
+  initializeLocalIP();
+});
 </script>
 
 <template>
   <div id="roxy-ip-checker">
     <header class="w-full fixed">
       <div
-        class="header-container px-1 tablet:px-0 w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto flex items-center justify-between py-1"
+        class="header-container px-1 tablet:px-2 w-full desktop:w-80 laptop:w-72 tablet:w-64 mx-auto flex items-center justify-between py-1 z-10 relative"
       >
         <img
           src="@/assets/rxip_logo.svg"
@@ -16,10 +157,18 @@ import Globe from "./components/Globe.vue";
         />
         <ul class="flex items-center gap-4 text-sm">
           <li>
-            <a href="#">RoxyBrowser</a>
+            <a href="#">Home</a>
           </li>
         </ul>
       </div>
+      <!-- <div class="gradient-blur">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div> -->
     </header>
     <main>
       <section
@@ -54,46 +203,106 @@ import Globe from "./components/Globe.vue";
                 <p
                   class="text-[1.875rem] text-center data-ip tablet:text-[2.5rem] tablet:text-left"
                 >
-                  182.255.32.54
+                  <HyperText
+                    :text="ipResult.ip || '0.0.0.0'"
+                    :status="animationStatus"
+                    :loading-refresh-speed="30"
+                    :delete-speed="10"
+                    :typing-speed="50"
+                  />
                 </p>
               </div>
               <div class="relative z-2">
                 <p
                   class="data-location hidden tablet:block tablet:text-left tablet:text-base"
                 >
-                  -118.2433 ，34.0549
+                  <HyperText
+                    :text="
+                      ipResult.longitude && ipResult.latitude
+                        ? `${ipResult.longitude}，${ipResult.latitude}`
+                        : '0.0000，0.0000'
+                    "
+                    :status="animationStatus"
+                    :loading-refresh-speed="30"
+                    :delete-speed="10"
+                    :typing-speed="40"
+                  />
                 </p>
               </div>
             </div>
             <div class="roxy-ip-info flex w-full desktop:flex-5">
               <ul class="text-sm tablet:text-base">
                 <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
-                  <span class="roxy-ip-info-label">Country:</span
-                  ><span class="roxy-ip-info-value"
-                    >United States of America</span
-                  >
+                  <span class="roxy-ip-info-label">Country:</span>
+                  <span class="roxy-ip-info-value">
+                    <HyperText
+                      :text="ipResult.country_long || 'Unknown'"
+                      :status="animationStatus"
+                      :loading-refresh-speed="30"
+                      :delete-speed="10"
+                      :typing-speed="30"
+                    />
+                  </span>
                 </li>
                 <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Region:</span
-                  ><span class="roxy-ip-info-value">California</span>
+                  ><span class="roxy-ip-info-value">
+                    <HyperText
+                      :text="ipResult.region || 'Unknown'"
+                      :status="animationStatus"
+                      :loading-refresh-speed="30"
+                      :delete-speed="10"
+                      :typing-speed="30"
+                    />
+                  </span>
                 </li>
                 <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">City:</span
-                  ><span class="roxy-ip-info-value">Los Angeles</span>
+                  ><span class="roxy-ip-info-value">
+                    <HyperText
+                      :text="ipResult.city || 'Unknown'"
+                      :status="animationStatus"
+                      :loading-refresh-speed="30"
+                      :delete-speed="10"
+                      :typing-speed="30"
+                    />
+                  </span>
                 </li>
                 <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Timezone:</span
-                  ><span class="roxy-ip-info-value"
-                    >Los Angeles County, CA (GMT-7)</span
-                  >
+                  ><span class="roxy-ip-info-value">
+                    <HyperText
+                      :text="ipResult.timezone || 'Unknown'"
+                      :status="animationStatus"
+                      :loading-refresh-speed="30"
+                      :delete-speed="10"
+                      :typing-speed="30"
+                    />
+                  </span>
                 </li>
                 <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Latitude:</span
-                  ><span class="roxy-ip-info-value">-118.2433</span>
+                  ><span class="roxy-ip-info-value">
+                    <HyperText
+                      :text="ipResult.latitude || '0.0000'"
+                      :status="animationStatus"
+                      :loading-refresh-speed="30"
+                      :delete-speed="10"
+                      :typing-speed="30"
+                    />
+                  </span>
                 </li>
                 <li class="gap-0 flex flex-col tablet:flex-row tablet:gap-0.5">
                   <span class="roxy-ip-info-label">Longitude:</span
-                  ><span class="roxy-ip-info-value">34.0549</span>
+                  ><span class="roxy-ip-info-value">
+                    <HyperText
+                      :text="ipResult.longitude || '0.0000'"
+                      :status="animationStatus"
+                      :loading-refresh-speed="30"
+                      :delete-speed="10"
+                      :typing-speed="30"
+                    />
+                  </span>
                 </li>
               </ul>
             </div>
@@ -111,10 +320,19 @@ import Globe from "./components/Globe.vue";
           <div
             class="roxy-ip-form-wrapper w-full tablet:w-30 flex justify-between tablet:mx-auto"
           >
-            <input type="text" placeholder="Enter IP address" />
-            <button>
+            <input
+              type="text"
+              placeholder="Enter IP address"
+              v-model="ipInput"
+              @keydown.enter="handleSearch"
+              :disabled="queryStatus === 'loading'"
+            />
+            <button
+              @click="handleSearch"
+              :disabled="queryStatus === 'loading' || !ipInput?.trim()"
+            >
               <img src="@/assets/ic_magnify.svg" alt="Lookup" />
-              Look Up
+              {{ queryStatus === "loading" ? "查询中..." : "Look Up" }}
             </button>
           </div>
         </div>
@@ -336,6 +554,99 @@ header {
   z-index: 2;
 }
 
+.gradient-blur {
+  height: 100%;
+  pointer-events: none;
+}
+.gradient-blur > div,
+.gradient-blur::before,
+.gradient-blur::after {
+  position: absolute;
+  inset: 0;
+}
+.gradient-blur::before {
+  content: "";
+  z-index: 8;
+  backdrop-filter: blur(64px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 12.5%,
+    rgba(0, 0, 0, 0) 25%
+  );
+}
+.gradient-blur > div:nth-of-type(1) {
+  z-index: 7;
+  backdrop-filter: blur(32px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 25%,
+    rgba(0, 0, 0, 0) 37.5%
+  );
+}
+.gradient-blur > div:nth-of-type(2) {
+  z-index: 6;
+  backdrop-filter: blur(16px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 12.5%,
+    rgba(0, 0, 0, 1) 37.5%,
+    rgba(0, 0, 0, 0) 50%
+  );
+}
+.gradient-blur > div:nth-of-type(3) {
+  z-index: 5;
+  backdrop-filter: blur(8px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 25%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0) 62.5%
+  );
+}
+.gradient-blur > div:nth-of-type(4) {
+  z-index: 4;
+  backdrop-filter: blur(4px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 37.5%,
+    rgba(0, 0, 0, 1) 62.5%,
+    rgba(0, 0, 0, 0) 75%
+  );
+}
+.gradient-blur > div:nth-of-type(5) {
+  z-index: 3;
+  backdrop-filter: blur(2px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 1) 75%,
+    rgba(0, 0, 0, 0) 87.5%
+  );
+}
+.gradient-blur > div:nth-of-type(6) {
+  z-index: 2;
+  backdrop-filter: blur(1px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 62.5%,
+    rgba(0, 0, 0, 1) 87.5%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+.gradient-blur::after {
+  content: "";
+  z-index: 1;
+  backdrop-filter: blur(0.5px);
+  mask: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 75%,
+    rgba(0, 0, 0, 1) 100%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
 main {
   width: 100%;
   position: relative;
@@ -459,6 +770,10 @@ main::before {
         &:focus {
           outline: none;
         }
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
       }
 
       button {
@@ -475,6 +790,10 @@ main::before {
         font-size: 1rem;
         border-radius: 8px;
         background: linear-gradient(105deg, #287bff 3.01%, #ffc6c6 110.56%);
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
       }
     }
   }

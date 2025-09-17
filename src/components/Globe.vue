@@ -34,7 +34,7 @@ onMounted(() => {
       markerColor: [1, 0.5, 1],
       glowColor: [1, 1, 1],
       offset: [0, 1000], // 向上偏移显示北半球
-      markers: [{ location: [40.7128, -74.006], size: 0.1 }],
+      markers: [],
       onRender: (state) => {
         state.phi = phi;
         phi += 0.001;
