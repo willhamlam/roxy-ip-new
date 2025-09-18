@@ -74,6 +74,14 @@ const handleSearch = async () => {
         zipcode: result.data.zipcode,
       };
       queryStatus.value = "result";
+      
+      // 在手机端搜索完成后自动平滑滚动到顶部
+      setTimeout(() => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }, 100);
     } else {
       // API返回错误
       throw new Error(result.msg || "API返回未知错误");
@@ -157,7 +165,7 @@ onMounted(() => {
         />
         <ul class="flex items-center gap-4 text-sm">
           <li>
-            <a href="#">Home</a>
+            <a href="https://roxybrowser.com" target="_blank">Home</a>
           </li>
         </ul>
       </div>
